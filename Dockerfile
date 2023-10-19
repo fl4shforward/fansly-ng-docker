@@ -4,10 +4,11 @@ WORKDIR /usr/src/fansly
 
 COPY ./Fansly .
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
   python3-tk \
+  && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
     
-RUN python -m pip install -r ./requirements.txt
+RUN python -m pip install -r ./requirements.txt --no-cache-dir
 
 CMD [ "python", "./fansly_downloader.py" ]
