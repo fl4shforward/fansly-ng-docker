@@ -1,6 +1,6 @@
 FROM python:3.10-slim
 
-WORKDIR /usr/src/fansly-downloader-ng
+WORKDIR /usr/src/fansly-ng
 
 COPY ./fansly-downloader-ng .
 
@@ -11,4 +11,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN python -m pip install -r ./requirements.txt --no-cache-dir
 
-CMD [ "python", "fansly_downloader_ng.py", "-ni" ]
+CMD [ "python", "fansly_downloader_ng.py", "-ni", "-npox" ]
