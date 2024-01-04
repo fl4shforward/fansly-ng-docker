@@ -20,5 +20,5 @@ jobs:
       uses: fl4shforward/gp-docker-action@v1.5.1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} # Provide GITHUB_TOKEN to login into the GitHub Packages
-        image-name: fl4shforward/fansly # Provide only Docker image name, tag will be automatically set to latest
+        image-name: fl4shforward/fansly-ng # Provide only Docker image name, tag will be automatically set to latest
         dockerfile: Dockerfile

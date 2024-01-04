@@ -1,9 +1,9 @@
 version: '3.8'
 services:
   fansly:
-    image: ghcr.io/fl4shforward/fansly
+    image: ghcr.io/fl4shforward/fansly-ng
     volumes:
-      - ./config.ini:/usr/src/fansly/config.ini
-      - ./downloads:/usr/src/fansly/downloads
+      - ./config.ini:/usr/src/fansly-ng/config.ini
+      - ./downloads:/usr/src/fansly-ng/downloads
     environment:
       TZ: Europe/Paris

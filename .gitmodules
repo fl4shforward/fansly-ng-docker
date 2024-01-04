@@ -1,3 +1,3 @@
-[submodule "Fansly"]
-	path = Fansly
-	url = https://github.com/Avnsx/fansly-downloader
+[submodule "fansly-downloader-ng"]
+	path = fansly-downloader-ng
+	url = https://github.com/prof79/fansly-downloader-ng
