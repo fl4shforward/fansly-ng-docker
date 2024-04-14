@@ -9,6 +9,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-RUN python -m pip install -r ./requirements.txt --no-cache-dir
+RUN python -m pip install -r ./requirements.txt --no-cache-dir && chmod -R 775 .
 
 CMD [ "python", "fansly_downloader_ng.py", "-ni", "-npox" ]
