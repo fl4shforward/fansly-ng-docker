@@ -6,6 +6,8 @@ COPY ./fansly-downloader-ng .
 
 RUN apk update && apk add --no-cache \
     tk \
+    build-base \
+    libffi-dev \
     && rm -rf /var/cache/apk/*
 
 RUN python -m pip install -r ./requirements.txt --no-cache-dir && chmod -R 777 /usr/src/fansly-ng && mkdir /.pyffmpeg && chmod 777 /.pyffmpeg
