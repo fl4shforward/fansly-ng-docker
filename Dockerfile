@@ -1,24 +1,16 @@
-FROM python:3.13-alpine
+FROM python:3.12-alpine
 
 WORKDIR /usr/src/fansly-ng
 
 COPY ./fansly-downloader-ng .
 
 RUN apk update && apk add --no-cache \
-    tk \
-    build-base \
-    libffi-dev \
-    freetype-dev \
-    fribidi-dev \
-    harfbuzz-dev \
-    jpeg-dev \
-    lcms2-dev \
-    libimagequant-dev \
-    openjpeg-dev \
-    tcl-dev \
-    tiff-dev \
-    tk-dev \
-    zlib-dev \
+    # gfortran \
+    # build-base \
+    # pkgconfig \
+    # openblas-dev \
+    # linux-headers \
+    python3-tkinter \
     && rm -rf /var/cache/apk/*
 
 RUN python -m pip install -r ./requirements.txt --no-cache-dir && chmod -R 777 /usr/src/fansly-ng && mkdir /.pyffmpeg && chmod 777 /.pyffmpeg
