@@ -2,6 +2,15 @@ name: Update Submodule to Latest Commit
 
 on:
   workflow_dispatch:
+    inputs:
+      tagAsLatest:
+          description: 'Tag as latest ?'
+          required: true
+          default: 'false'
+          type: choice
+          options:
+            - 'true'
+            - 'false'
 
 jobs:
   update_latest_submodule:
@@ -34,7 +43,7 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add ${{ env.submodule_path }}
           git commit -m "Update submodule to the latest commit"
-          git push origin main
+          git push origin ${{ github.ref_name }}
 
       - name: Trigger Docker build workflow
         run: |
@@ -42,7 +51,13 @@ jobs:
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           https://api.github.com/repos/${{ github.repository }}/dispatches \
-          -d '{"event_type": "trigger_docker_build", "client_payload": {"latest_tag": "${{ env.latest_tag }}"}}'
+          -d '{
+                "event_type": "trigger_docker_build",
+                "client_payload": {
+                  "latest_tag": "${{ env.latest_tag }}",
+                  "tag_as_latest": "${{ github.event.inputs.tagAsLatest }}"
+                }
+              }'
 
       - name: Display updated submodule path
         run: |

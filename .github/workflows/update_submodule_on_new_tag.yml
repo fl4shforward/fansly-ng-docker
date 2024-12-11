@@ -9,6 +9,14 @@ on:
         description: "Specify a tag to force checkout"
         required: false
         default: ""
+      tagAsLatest:
+        description: 'Tag as latest ?'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 jobs:
   update_submodule_on_new_tag:
@@ -57,7 +65,7 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add ${{ env.submodule_path }}
           git commit -m "Update submodule to tag ${{ env.tag_to_use }}"
-          git push origin main
+          git push origin ${{ github.ref_name }}
           echo "trigger_build=true" >> $GITHUB_ENV
 
       - name: Trigger Docker build workflow
@@ -67,4 +75,11 @@ jobs:
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           https://api.github.com/repos/${{ github.repository }}/dispatches \
-          -d '{"event_type": "trigger_docker_build", "client_payload": {"latest_tag": "${{ env.tag_to_use }}", "current_tag": "${{ env.current_tag }}"}}'
+          -d '{
+                "event_type": "trigger_docker_build",
+                "client_payload": {
+                  "latest_tag": "${{ env.tag_to_use }}",
+                  "current_tag": "${{ env.current_tag }}",
+                  "tag_as_latest": "${{ github.event.inputs.tagAsLatest }}"
+                }
+              }'
