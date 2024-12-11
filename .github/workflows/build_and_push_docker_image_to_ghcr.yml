@@ -7,8 +7,7 @@ on:
     inputs:
       user_defined_tag:
         description: 'Custom tag for the Docker image'
-        required: false
-        default: 'latest'
+        required: true
       tagAsLatest:
           description: 'Tag as latest ?'
           required: true
