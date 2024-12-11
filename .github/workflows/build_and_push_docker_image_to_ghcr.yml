@@ -9,6 +9,14 @@ on:
         description: 'Custom tag for the Docker image'
         required: false
         default: 'latest'
+      tagAsLatest:
+          description: 'Tag as latest ?'
+          required: true
+          default: 'false'
+          type: choice
+          options:
+            - 'true'
+            - 'false'
 
 jobs:
   build_docker:
@@ -41,5 +49,5 @@ jobs:
           push: true
           tags: |
             ghcr.io/${{ github.repository_owner }}/fansly-ng:${{ github.event.inputs.user_defined_tag != '' && github.event.inputs.user_defined_tag || github.event.client_payload.latest_tag }}
-            ${{ github.event.client_payload.tag_as_latest == 'true' && 'ghcr.io/${{ github.repository_owner }}/fansly-ng:latest' || '' }}
+            ${{ github.event.inputs.tagAsLatest == 'true' || github.event.client_payload.tag_as_latest == 'true' && 'ghcr.io/${{ github.repository_owner }}/fansly-ng:latest' || '' }}
   
